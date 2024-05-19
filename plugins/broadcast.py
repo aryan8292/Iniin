@@ -6,7 +6,7 @@ from info import ADMINS
 from utils import broadcast_messages, broadcast_messages_group
 import asyncio
 
-BATCH_SIZE = 50  # Increase the number of concurrent broadcasts
+BATCH_SIZE = 20  # Number of concurrent broadcasts
 
 async def broadcast_user(user_id, b_msg):
     try:
@@ -59,8 +59,7 @@ async def verupikkals(bot, message):
 
         done += len(batch)
 
-        if done % (BATCH_SIZE * 5) == 0:  # Update less frequently to reduce overhead
-            await sts.edit(f"Broadcast in progress:\n\nTotal Users {total_users}\nCompleted: {done} / {total_users}\nSuccess: {success}\nBlocked: {blocked}\nDeleted: {deleted}")
+        await sts.edit(f"Broadcast in progress:\n\nTotal Users {total_users}\nCompleted: {done} / {total_users}\nSuccess: {success}\nBlocked: {blocked}\nDeleted: {deleted}")
 
     time_taken = datetime.timedelta(seconds=int(time.time() - start_time))
     await sts.edit(f"Broadcast Completed:\nCompleted in {time_taken} seconds.\n\nTotal Users {total_users}\nCompleted: {done} / {total_users}\nSuccess: {success}\nBlocked: {blocked}\nDeleted: {deleted}")
@@ -88,8 +87,7 @@ async def broadcast_group(bot, message):
 
         done += len(batch)
 
-        if done % (BATCH_SIZE * 5) == 0:  # Update less frequently to reduce overhead
-            await sts.edit(f"Broadcast in progress:\n\nTotal Groups {total_groups}\nCompleted: {done} / {total_groups}\nSuccess: {success}")
+        await sts.edit(f"Broadcast in progress:\n\nTotal Groups {total_groups}\nCompleted: {done} / {total_groups}\nSuccess: {success}")
 
     time_taken = datetime.timedelta(seconds=int(time.time() - start_time))
     await sts.edit(f"Broadcast Completed:\nCompleted in {time_taken} seconds.\n\nTotal Groups {total_groups}\nCompleted: {done} / {total_groups}\nSuccess: {success}")
